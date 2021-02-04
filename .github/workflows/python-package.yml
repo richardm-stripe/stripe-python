@@ -19,10 +19,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
+
+    # TODO: docker cache?
+    - name: Start stripe-mock
+      run: docker run -d -p 12111-12112:12111-12112 stripemock/stripe-mock && sleep 5
 
     - name: Test with pytest
       run: make ci
