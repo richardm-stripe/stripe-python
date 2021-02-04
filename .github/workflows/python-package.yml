@@ -10,6 +10,30 @@ on:
     branches: [ master ]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 2
+      uses: actions/setup-python@v2
+      with:
+        python-version: 2.7
+    - name: lint
+      run: make lint
+
+
+  fmtcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: fmtcheck
+      run: make fmtcheck
+
   build:
 
     runs-on: ubuntu-latest
